@@ -1,6 +1,7 @@
 services:
   app:
-    build: .
-    volumes:
-      - ./app:/app
+    image: koalala610/devops-for-programmers-project-74:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile.production
     command: make test
