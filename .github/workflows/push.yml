@@ -1,0 +1,24 @@
+name: push
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Run tests with Docker Compose
+        run: docker compose -f docker-compose.yml up --abort-on-container-exit app
+      - name: Build Docker image
+        run: docker compose -f docker-compose.yml build app
+      - name: Push image to Docker Hub
+        run: docker compose -f docker-compose.yml push app

@@ -1,6 +1,6 @@
 services:
   app:
-    image: koalala610/devops-for-programmers-project-74:0.0.1
+    image: koalala610/devops-for-programmers-project-74:latest
     build:
       context: .
       dockerfile: Dockerfile.production
